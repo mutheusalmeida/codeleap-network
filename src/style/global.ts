@@ -10,6 +10,18 @@ const GlobalStyles = createGlobalStyle`
     box-sizing: border-box;
   }
 
+  :root {
+    --primary-color: #7695EC;
+    --dark: #000;
+    --gray-100: #DDD;
+    --gray-200: #CCCC;
+    --gray-300: #999;
+    --gray-400: #777;
+    --red: #FF5151;
+    --green: #47B960;
+    --white: #FFF;
+  }
+
   * {
     margin: 0;
   }
@@ -25,7 +37,8 @@ const GlobalStyles = createGlobalStyle`
   body {
     line-height: 1.5;
     -webkit-font-smoothing: antialiased;
-    color: #222;
+    font-family: 'Roboto', sans-serif;
+    color: var(--dark);
   }
 
   img, picture, video, canvas, svg {
