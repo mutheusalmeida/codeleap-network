@@ -22,11 +22,17 @@ export const BaseButtonWrapper = styled.button<BaseButtonWrapperType>`
   ${({ btnStyle, bgColor }) => btnStyle === 'primary' && css`
     color: var(--white);
     background-color: var(${bgColor});
-  `}
+    `}
 
   ${({ btnStyle }) => btnStyle === 'secondary' && css`
     color: var(--dark);
     background-color: transparent;
     border: 1px solid var(--gray-300);
   `}
+
+  &:disabled {
+    opacity: 0.5;
+    background-color: var(--gray-400);
+    cursor: not-allowed;
+  }
 `

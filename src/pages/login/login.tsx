@@ -2,9 +2,9 @@ import { BaseModal } from '@/components/base-modal'
 import { useModal } from '@/hooks/use-modal'
 import { Input, InputWrapper, Label, Title } from '@/style'
 import { BaseButton } from '@/components/base-button'
+import { FormEvent } from 'react'
 
 import * as S from './styles'
-import { FormEvent } from 'react'
 
 export const Login = () => {
   const { ref: loginModalRef } = useModal()

@@ -1,5 +1,6 @@
 import { ReactNode } from 'react'
 import { BaseButtonStyleType } from 'base-button'
+import { Spinner } from '../spinner'
 
 import * as S from './styles'
 
@@ -16,7 +17,7 @@ export const BaseButton = ({
   type,
   handleClick,
   isLoading,
-  disabled,
+  disabled = false,
   bgColor = '--primary-color',
   btnStyle = 'primary',
   textCase = 'uppercase',
@@ -30,7 +31,13 @@ export const BaseButton = ({
       btnStyle={btnStyle}
       textCase={textCase}
     >
-      {children}
+      {isLoading
+        ? (
+          <Spinner width={16} height={16} color='var(--white)' />
+          )
+        : (
+          <>{children}</>
+          )}
     </S.BaseButtonWrapper>
   )
 }
