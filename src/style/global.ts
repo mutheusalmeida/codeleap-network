@@ -39,6 +39,7 @@ const GlobalStyles = createGlobalStyle`
     -webkit-font-smoothing: antialiased;
     font-family: 'Roboto', sans-serif;
     color: var(--dark);
+    background-color: var(--gray-100);
   }
 
   img, picture, video, canvas, svg {
