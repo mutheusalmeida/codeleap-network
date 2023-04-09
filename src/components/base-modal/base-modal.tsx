@@ -1,4 +1,4 @@
-import { ReactNode, forwardRef, useCallback, useImperativeHandle, useState } from 'react'
+import { ReactNode, forwardRef, useCallback, useEffect, useImperativeHandle, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { ModalRef } from 'modal'
 
@@ -24,7 +24,7 @@ const createModalRoot = () => {
 }
 
 export const BaseModal = forwardRef<ModalRef, BaseModalProps>(({ defaultOpen = false, onClose, children }, modalRef) => {
-  const [isOpen, setIsOpen] = useState(defaultOpen)
+  const [isOpen, setIsOpen] = useState(false)
 
   const open = useCallback(() => setIsOpen(true), [])
 
@@ -35,6 +35,10 @@ export const BaseModal = forwardRef<ModalRef, BaseModalProps>(({ defaultOpen = f
   }, [onClose])
 
   useImperativeHandle(modalRef, () => ({ close, open, isOpen }))
+
+  useEffect(() => {
+    setIsOpen(defaultOpen)
+  }, [defaultOpen])
 
   return createPortal(
     <S.BaseModalWrapper>

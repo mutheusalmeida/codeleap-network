@@ -9,11 +9,13 @@ export const Login = () => {
 
   return (
     <S.LoginWrapper>
-      <BaseModal ref={loginModalRef}>
+      <BaseModal
+        ref={loginModalRef}
+        defaultOpen
+      >
         Login Modal
+        <Link to='/home'>Login</Link>
       </BaseModal>
-
-      <Link to='/home'>Login</Link>
     </S.LoginWrapper>
   )
 }
