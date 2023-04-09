@@ -1,13 +1,13 @@
-import { ModalRef } from 'modal'
+import { ModalRefType } from 'modal'
 import { useRef } from 'react'
 
 export const useModal = () => {
-  const modalRef = useRef<ModalRef>(null)
+  const ModalRefType = useRef<ModalRefType>(null)
 
   return {
-    ref: modalRef,
-    open: () => modalRef.current?.open(),
-    close: () => modalRef.current?.close(),
-    isOpen: () => modalRef.current?.isOpen,
+    ref: ModalRefType,
+    open: () => ModalRefType.current?.open(),
+    close: () => ModalRefType.current?.close(),
+    isOpen: () => ModalRefType.current?.isOpen,
   }
 }

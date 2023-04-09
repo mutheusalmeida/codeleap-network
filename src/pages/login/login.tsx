@@ -1,12 +1,19 @@
-import { Link } from 'react-router-dom'
 import { BaseModal } from '@/components/base-modal'
 import { useModal } from '@/hooks/use-modal'
-import { Title } from '@/style'
+import { Input, InputWrapper, Label, Title } from '@/style'
+import { BaseButton } from '@/components/base-button'
 
 import * as S from './styles'
+import { FormEvent } from 'react'
 
 export const Login = () => {
   const { ref: loginModalRef } = useModal()
+
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault()
+
+    console.log('hi')
+  }
 
   return (
     <BaseModal
@@ -14,9 +21,29 @@ export const Login = () => {
       defaultOpen
       hasOverlay={false}
     >
-      <S.LoginForm>
+      <S.LoginForm
+        onSubmit={handleSubmit}
+      >
         <Title>Welcome to CodeLeap network!</Title>
-        <Link to='/home'>Login</Link>
+
+        <InputWrapper>
+          <Label htmlFor='username'>Please enter your username</Label>
+
+          <Input
+            id='username'
+            name='username'
+            type='text'
+            placeholder='John Doe'
+          />
+        </InputWrapper>
+
+        <S.LoginBtnWrapper>
+          <BaseButton
+            type='submit'
+          >
+            Enter
+          </BaseButton>
+        </S.LoginBtnWrapper>
       </S.LoginForm>
     </BaseModal>
   )

@@ -1,3 +1,4 @@
+import { BaseButton } from '@/components/base-button'
 import styled from 'styled-components'
 
 export const LoginForm = styled.form`
@@ -6,4 +7,10 @@ export const LoginForm = styled.form`
   gap: 1em;
   width: 28.25em;
   max-width: 100%;
+`
+
+export const LoginBtnWrapper = styled.div`
+  margin-top: 0.5714em;
+  display: flex;
+  align-self: end;
 `

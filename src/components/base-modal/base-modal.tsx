@@ -1,6 +1,6 @@
 import { ReactNode, forwardRef, useCallback, useEffect, useImperativeHandle, useState } from 'react'
 import { createPortal } from 'react-dom'
-import { ModalRef } from 'modal'
+import { ModalRefType } from 'modal'
 
 import * as S from './styles'
 
@@ -24,7 +24,7 @@ const createModalRoot = () => {
   return modalRoot
 }
 
-export const BaseModal = forwardRef<ModalRef, BaseModalProps>(({ defaultOpen = false, onClose, children, hasOverlay = true }, modalRef) => {
+export const BaseModal = forwardRef<ModalRefType, BaseModalProps>(({ defaultOpen = false, onClose, children, hasOverlay = true }, modalRef) => {
   const [isOpen, setIsOpen] = useState(false)
 
   const open = useCallback(() => setIsOpen(true), [])
