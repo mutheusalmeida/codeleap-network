@@ -7,6 +7,7 @@ import * as S from './styles'
 type BaseModalProps = {
   children: ReactNode
   defaultOpen?: boolean
+  hasOverlay?: boolean
   onClose?: () => void
 }
 
@@ -23,7 +24,7 @@ const createModalRoot = () => {
   return modalRoot
 }
 
-export const BaseModal = forwardRef<ModalRef, BaseModalProps>(({ defaultOpen = false, onClose, children }, modalRef) => {
+export const BaseModal = forwardRef<ModalRef, BaseModalProps>(({ defaultOpen = false, onClose, children, hasOverlay = true }, modalRef) => {
   const [isOpen, setIsOpen] = useState(false)
 
   const open = useCallback(() => setIsOpen(true), [])
@@ -41,7 +42,7 @@ export const BaseModal = forwardRef<ModalRef, BaseModalProps>(({ defaultOpen = f
   }, [defaultOpen])
 
   return createPortal(
-    <S.BaseModalWrapper>
+    <S.BaseModalWrapper hasOverlay={hasOverlay}>
       {children}
     </S.BaseModalWrapper>,
     createModalRoot(),

@@ -12,6 +12,7 @@ export const Login = () => {
       <BaseModal
         ref={loginModalRef}
         defaultOpen
+        hasOverlay={false}
       >
         Login Modal
         <Link to='/home'>Login</Link>
