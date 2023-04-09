@@ -18,6 +18,7 @@ export const BaseButtonWrapper = styled.button<BaseButtonWrapperType>`
   max-width: max-content;
   border-radius: 0.5em;
   text-transform: ${({ textCase }) => textCase};
+  transition: opacity ease 0.3s;
 
   ${({ btnStyle, bgColor }) => btnStyle === 'primary' && css`
     color: var(--white);
@@ -34,5 +35,12 @@ export const BaseButtonWrapper = styled.button<BaseButtonWrapperType>`
     opacity: 0.5;
     background-color: var(--gray-400);
     cursor: not-allowed;
+  }
+
+  @media not all and (hover: none) {
+    &:hover,
+    &:focus {
+      opacity: 0.8;
+    }
   }
 `
