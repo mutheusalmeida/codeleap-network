@@ -43,7 +43,9 @@ export const BaseModal = forwardRef<ModalRef, BaseModalProps>(({ defaultOpen = f
 
   return createPortal(
     <S.BaseModalWrapper hasOverlay={hasOverlay}>
-      {children}
+      <S.ModalContainer>
+        {children}
+      </S.ModalContainer>
     </S.BaseModalWrapper>,
     createModalRoot(),
   )

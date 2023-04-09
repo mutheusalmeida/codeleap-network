@@ -19,3 +19,13 @@ export const BaseModalWrapper = styled.div<BaseModalWrapperType>`
     background-color: rgba(119, 119, 119, 0.8);
   `}
 `
+
+export const ModalContainer = styled.div`
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  border-radius: 1em;
+  width: max-content;
+  max-width: 100%;
+  padding: 1.5em;
+  margin: 0 1em;
+`

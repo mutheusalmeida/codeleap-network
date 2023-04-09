@@ -20,6 +20,10 @@ const GlobalStyles = createGlobalStyle`
     --red: #FF5151;
     --green: #47B960;
     --white: #FFF;
+    --xxs: 0.875rem;
+    --xs: 1rem;
+    --sm: 1.125rem;
+    --md: 1.375rem;
   }
 
   * {
