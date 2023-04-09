@@ -2,17 +2,29 @@ import { BaseModal } from '@/components/base-modal'
 import { useModal } from '@/hooks/use-modal'
 import { Input, InputWrapper, Label, Title } from '@/style'
 import { BaseButton } from '@/components/base-button'
-import { FormEvent } from 'react'
+import { ChangeEvent, FormEvent, useState } from 'react'
 
 import * as S from './styles'
 
 export const Login = () => {
   const { ref: loginModalRef } = useModal()
+  const [formData, setFormData] = useState({
+    username: '',
+  })
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleFormSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
-    console.log('hi')
+    console.log(formData)
+  }
+
+  const handleFormChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target
+
+    setFormData(prev => ({
+      ...prev,
+      [name]: value,
+    }))
   }
 
   return (
@@ -22,7 +34,7 @@ export const Login = () => {
       hasOverlay={false}
     >
       <S.LoginForm
-        onSubmit={handleSubmit}
+        onSubmit={handleFormSubmit}
       >
         <Title>Welcome to CodeLeap network!</Title>
 
@@ -34,12 +46,15 @@ export const Login = () => {
             name='username'
             type='text'
             placeholder='John Doe'
+            value={formData.username}
+            onChange={handleFormChange}
           />
         </InputWrapper>
 
         <S.LoginBtnWrapper>
           <BaseButton
             type='submit'
+            disabled={!formData.username}
           >
             Enter
           </BaseButton>
