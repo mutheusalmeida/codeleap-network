@@ -2,6 +2,8 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { App } from '@/app'
 import GlobalStyles from './style/global'
+import { Provider } from 'react-redux'
+import store from './redux/store'
 
 const rootElement = document.querySelector('[data-js="root"]')
 
@@ -13,6 +15,9 @@ const root = createRoot(rootElement)
 root.render(
   <StrictMode>
     <GlobalStyles />
-    <App />
+
+    <Provider store={store}>
+      <App />
+    </Provider>
   </StrictMode>,
 )
