@@ -32,11 +32,12 @@ export const Login = () => {
       ref={loginModalRef}
       defaultOpen
       hasOverlay={false}
+      closeOnOutsideClick={false}
     >
       <S.LoginForm
         onSubmit={handleFormSubmit}
       >
-        <Title>Welcome to CodeLeap network!</Title>
+        <Title id='modal-title' tabIndex={0}>Welcome to CodeLeap network!</Title>
 
         <InputWrapper>
           <Label htmlFor='username'>Please enter your username</Label>

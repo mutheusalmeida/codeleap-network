@@ -9,6 +9,7 @@ type BaseModalProps = {
   defaultOpen?: boolean
   hasOverlay?: boolean
   onClose?: () => void
+  closeOnOutsideClick?: boolean
 }
 
 const createModalRoot = () => {
@@ -24,7 +25,13 @@ const createModalRoot = () => {
   return modalRoot
 }
 
-export const BaseModal = forwardRef<ModalRefType, BaseModalProps>(({ defaultOpen = false, onClose, children, hasOverlay = true }, modalRef) => {
+export const BaseModal = forwardRef<ModalRefType, BaseModalProps>(({
+  defaultOpen = false,
+  onClose,
+  children,
+  hasOverlay = true,
+  closeOnOutsideClick = true,
+}, modalRef) => {
   const [isOpen, setIsOpen] = useState(false)
 
   const open = useCallback(() => setIsOpen(true), [])
@@ -42,7 +49,16 @@ export const BaseModal = forwardRef<ModalRefType, BaseModalProps>(({ defaultOpen
   }, [defaultOpen])
 
   return createPortal(
-    <S.BaseModalWrapper hasOverlay={hasOverlay}>
+    <S.BaseModalWrapper
+      hasOverlay={hasOverlay}
+      isOpen={isOpen}
+      onClick={() => {
+        if (closeOnOutsideClick) close()
+      }}
+      aria-hidden={!isOpen}
+      aria-labelledby='modal-title'
+      role='dialog'
+    >
       <S.ModalContainer>
         {children}
       </S.ModalContainer>

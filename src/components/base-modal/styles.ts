@@ -2,6 +2,7 @@ import styled, { css } from 'styled-components'
 
 type BaseModalWrapperType = {
   hasOverlay: boolean
+  isOpen: boolean
 }
 
 export const BaseModalWrapper = styled.div<BaseModalWrapperType>`
@@ -14,6 +15,9 @@ export const BaseModalWrapper = styled.div<BaseModalWrapperType>`
   align-items: center;
   justify-content: center;
   z-index: 10;
+  visibility: ${({ isOpen }) => isOpen ? 'visible' : 'hidden'};
+  opacity: ${({ isOpen }) => isOpen ? '1' : '0'};
+  transition: visibility, opacity, ease 0.3s;
 
   ${({ hasOverlay }) => hasOverlay && css`
     background-color: rgba(119, 119, 119, 0.8);
