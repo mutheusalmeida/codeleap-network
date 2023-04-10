@@ -6,6 +6,8 @@ import { ChangeEvent, FormEvent, useState } from 'react'
 import localforage from 'localforage'
 import { loading } from '@/resources/utils/loading'
 import { useNavigate } from 'react-router-dom'
+import { useAppDispatch } from '@/hooks/use-app-dispatch'
+import { setUser } from '@/redux/slices/user-slice'
 
 import * as S from './styles'
 
@@ -16,6 +18,7 @@ export const Login = () => {
   })
   const [isLoading, setIsLoading] = useState(false)
   const navigate = useNavigate()
+  const dispatch = useAppDispatch()
 
   const handleFormSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -24,11 +27,12 @@ export const Login = () => {
       setIsLoading(true)
       await localforage.setItem('token', formData.username)
       await loading(2)
+      dispatch(setUser({ username: formData.username, isAuthenticated: true }))
     } catch {
       console.log('error')
     } finally {
       setIsLoading(false)
-      navigate('home')
+      navigate('/home')
     }
   }
 

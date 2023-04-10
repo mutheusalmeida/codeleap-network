@@ -1,13 +1,13 @@
-import { Link } from 'react-router-dom'
+import { useAppSelector } from '@/hooks/use-app-selector'
 
 import * as S from './styles'
 
 export const Home = () => {
+  const { username } = useAppSelector(state => state.user.user)
+
   return (
     <S.HomeWrapper>
-      <h1>home</h1>
-
-      <Link to='/'>Go back</Link>
+      <h1>{username}</h1>
     </S.HomeWrapper>
   )
 }

@@ -1,10 +1,12 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 
+type UserType = {
+  username: undefined | string
+  isAuthenticated: boolean
+}
+
 type UserSliceType = {
-  user: {
-    username: undefined | string
-    isAuthenticated: boolean
-  }
+  user: UserType
 }
 
 const initialState: UserSliceType = {
@@ -18,8 +20,9 @@ const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    setUser: (state, action: PayloadAction<string>) => {
-      state.user.username = action.payload
+    setUser: (state, action: PayloadAction<UserType>) => {
+      state.user.username = action.payload.username
+      state.user.isAuthenticated = action.payload.isAuthenticated
     },
   },
 })
