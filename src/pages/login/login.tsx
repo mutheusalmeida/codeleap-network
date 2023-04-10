@@ -3,6 +3,9 @@ import { useModal } from '@/hooks/use-modal'
 import { Input, InputWrapper, Label, Title } from '@/style'
 import { BaseButton } from '@/components/base-button'
 import { ChangeEvent, FormEvent, useState } from 'react'
+import localforage from 'localforage'
+import { loading } from '@/resources/utils/loading'
+import { useNavigate } from 'react-router-dom'
 
 import * as S from './styles'
 
@@ -11,11 +14,22 @@ export const Login = () => {
   const [formData, setFormData] = useState({
     username: '',
   })
+  const [isLoading, setIsLoading] = useState(false)
+  const navigate = useNavigate()
 
-  const handleFormSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleFormSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
-    console.log(formData)
+    try {
+      setIsLoading(true)
+      await localforage.setItem('token', formData.username)
+      await loading(2)
+    } catch {
+      console.log('error')
+    } finally {
+      setIsLoading(false)
+      navigate('home')
+    }
   }
 
   const handleFormChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -56,6 +70,7 @@ export const Login = () => {
           <BaseButton
             type='submit'
             disabled={!formData.username}
+            isLoading={isLoading}
           >
             Enter
           </BaseButton>
