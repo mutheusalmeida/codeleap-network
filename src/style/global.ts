@@ -28,6 +28,15 @@ const GlobalStyles = createGlobalStyle`
 
   * {
     margin: 0;
+
+    &:focus-visible {
+      outline-color: var(--primary-color);
+    }
+
+    &::selection {
+      background-color: var(--primary-color);
+      color: var(--white);
+    }
   }
 
   html {
