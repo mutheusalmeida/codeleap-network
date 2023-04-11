@@ -3,11 +3,11 @@ import { useModal } from '@/hooks/use-modal'
 import { Input, InputWrapper, Label, Title } from '@/style'
 import { BaseButton } from '@/components/base-button'
 import { ChangeEvent, FormEvent, useState } from 'react'
-import localforage from 'localforage'
 import { loading } from '@/resources/utils/loading'
-import { useNavigate } from 'react-router-dom'
+import { Navigate, useLocation, useNavigate } from 'react-router-dom'
 import { useAppDispatch } from '@/hooks/use-app-dispatch'
 import { setUser } from '@/redux/slices/user-slice'
+import { useAppSelector } from '@/hooks/use-app-selector'
 
 import * as S from './styles'
 
@@ -19,13 +19,14 @@ export const Login = () => {
   const [isLoading, setIsLoading] = useState(false)
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
+  const { isAuthenticated } = useAppSelector(state => state.user.user)
+  const location = useLocation()
 
   const handleFormSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
     try {
       setIsLoading(true)
-      await localforage.setItem('token', formData.username)
       await loading(2)
       dispatch(setUser({ username: formData.username, isAuthenticated: true }))
     } catch {
@@ -43,6 +44,10 @@ export const Login = () => {
       ...prev,
       [name]: value,
     }))
+  }
+
+  if (isAuthenticated) {
+    return <Navigate to='/home' state={{ from: location }} replace />
   }
 
   return (

@@ -5,7 +5,7 @@ type UserType = {
   isAuthenticated: boolean
 }
 
-type UserSliceType = {
+export type UserSliceType = {
   user: UserType
 }
 

@@ -3,7 +3,8 @@ import { createRoot } from 'react-dom/client'
 import { App } from '@/app'
 import GlobalStyles from './style/global'
 import { Provider } from 'react-redux'
-import store from './redux/store'
+import store, { persistor } from './redux/store'
+import { PersistGate } from 'redux-persist/integration/react'
 
 const rootElement = document.querySelector('[data-js="root"]')
 
@@ -17,7 +18,9 @@ root.render(
     <GlobalStyles />
 
     <Provider store={store}>
-      <App />
+      <PersistGate loading={null} persistor={persistor}>
+        <App />
+      </PersistGate>
     </Provider>
   </StrictMode>,
 )
