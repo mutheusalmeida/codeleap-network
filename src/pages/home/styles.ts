@@ -1,4 +1,4 @@
-import { Title } from '@/style'
+import { Title, primarySelection } from '@/style'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
@@ -22,6 +22,8 @@ export const HomeHeader = styled.header`
   padding: 1em 2.3125em;
   gap: 1em;
   background-color: var(--primary-color);
+
+  ${primarySelection}
 `
 
 export const HomeTitle = styled(Title)`

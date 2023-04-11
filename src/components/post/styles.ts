@@ -1,4 +1,4 @@
-import { Title, defaultButton } from '@/style'
+import { Title, primarySelection } from '@/style'
 import styled from 'styled-components'
 
 export const PostWrapper = styled.div`
@@ -13,6 +13,8 @@ export const PostHeader = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+
+  ${primarySelection}
 `
 
 export const PostTitle = styled(Title)`

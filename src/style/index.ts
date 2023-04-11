@@ -5,10 +5,11 @@ export const Title = styled.h1`
   line-height: 1.1818em;
 `
 
-export const defaultButton = css`
-  display: flex;
-  border: none;
-  background-color: transparent;
-  cursor: pointer;
-  padding: 0;
+export const primarySelection = css`
+  * {
+    &::selection {
+      background-color: var(--white);
+      color: var(--primary-color);
+    }
+  }
 `
