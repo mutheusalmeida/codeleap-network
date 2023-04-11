@@ -6,13 +6,15 @@ type useModalProps = {
 }
 
 const useModal = ({ isCurrentlyOpen = false }: useModalProps = {}): ModalState => {
-  const [isOpen, setOpen] = useState(isCurrentlyOpen)
+  const [isOpen, setIsOpen] = useState(isCurrentlyOpen)
 
-  const open = useCallback(() => setOpen(true), [])
+  const setOpen = useCallback((isOpen: boolean) => setIsOpen(isOpen), [])
 
-  const close = useCallback(() => setOpen(false), [])
+  const open = useCallback(() => setIsOpen(true), [])
 
-  const toggle = useCallback(() => setOpen(prev => !prev), [])
+  const close = useCallback(() => setIsOpen(false), [])
+
+  const toggle = useCallback(() => setIsOpen(prev => !prev), [])
 
   return {
     isOpen,
