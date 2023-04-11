@@ -15,10 +15,12 @@ export const HomeContainer = styled.div`
 
 export const HomeHeader = styled.header`
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
   min-height: 5em;
-  padding: 0 2.3125em;
+  padding: 1em 2.3125em;
+  gap: 1em;
   background-color: var(--primary-color);
 `
 
@@ -30,6 +32,7 @@ export const UserWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: end;
+  margin-left: auto;
 `
 
 export const UserGreeting = styled(Title)`
