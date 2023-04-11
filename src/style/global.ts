@@ -20,10 +20,10 @@ const GlobalStyles = createGlobalStyle`
     --red: #FF5151;
     --green: #47B960;
     --white: #FFF;
-    --xxs: 0.875rem;
-    --xs: 1rem;
-    --sm: 1.125rem;
-    --md: 1.375rem;
+    --xxs: 0.875rem; // 14px
+    --xs: 1rem; // 16px
+    --sm: 1.125rem; // 18px
+    --md: 1.375rem; // 22px
   }
 
   * {
@@ -40,7 +40,11 @@ const GlobalStyles = createGlobalStyle`
   }
 
   html {
-    font-size: 100%;
+    font-size: 79%;
+
+    @media (min-width: 40em) {
+      font-size: 100%;
+    }
   }
 
   html, body, [data-js="root"] {

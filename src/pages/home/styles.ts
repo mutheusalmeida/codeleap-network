@@ -53,7 +53,7 @@ export const LogoutLink = styled(Link)`
   }
 `
 
-export const HomeContent = styled.div`
+export const HomeContent = styled.main`
   padding: 1.5em;
   display: flex;
   flex-direction: column;

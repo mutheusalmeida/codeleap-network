@@ -9,6 +9,7 @@ import { handleFormChange } from '@/resources/utils/handle-form-change'
 import { loading } from '@/resources/utils/loading'
 
 import * as S from './styles'
+import { Post } from '@/components/post'
 
 export const Home = () => {
   const [formData, setFormData] = useState({
@@ -82,6 +83,8 @@ export const Home = () => {
               Create
             </Button>
           </S.PostForm>
+
+          <Post />
         </S.HomeContent>
       </S.HomeContainer>
     </S.HomeWrapper>
