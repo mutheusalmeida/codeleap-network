@@ -6,18 +6,23 @@ import * as S from './styles'
 
 type TextFieldProps = {
   onChange(e: ChangeEvent<HTMLInputElement>): void
+  inputElementType?: any
 } & Omit<AriaTextFieldProps, 'onChange'>
 
-export const TextField = ({ onChange, ...props }: TextFieldProps) => {
+export const TextField = ({ onChange, inputElementType = 'input', ...props }: TextFieldProps) => {
   const { label } = props
   const ref = useRef(null)
-  const { labelProps, inputProps } = useTextField(props, ref)
+  const { labelProps, inputProps } = useTextField({
+    ...props,
+    inputElementType,
+  }, ref)
 
   return (
     <S.TextFieldWrapper>
       <S.Label {...labelProps}>{label}</S.Label>
 
       <S.Input
+        as={inputElementType}
         {...inputProps}
         ref={ref}
         onChange={onChange}

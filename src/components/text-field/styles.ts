@@ -1,4 +1,8 @@
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
+
+type InputType = {
+  as: string
+}
 
 export const TextFieldWrapper = styled.div`
   display: flex;
@@ -12,7 +16,7 @@ export const Label = styled.label`
   color: var(--dark);
 `
 
-export const Input = styled.input`
+export const Input = styled.input<InputType>`
   font-size: var(--xxs);
   height: 2.2857em;
   line-height: 2.2857em;
@@ -24,6 +28,11 @@ export const Input = styled.input`
   display: flex;
   align-items: center;
   justify-content: center;
+
+  ${({ as: asEle }) => asEle === 'textarea' && css`
+    height: 5.2857em;
+    resize: none;
+  `}
 
   &::placeholder {
     color: var(--gray-200);

@@ -10,6 +10,7 @@ import { Modal } from '@/components/modal'
 import { useOverlayTrigger } from 'react-aria'
 import useModal from '@/hooks/use-modal'
 import { TextField } from '@/components/text-field'
+import { handleFormChange } from '@/resources/utils/handleFormChange'
 
 import * as S from './styles'
 
@@ -35,17 +36,17 @@ export const Login = () => {
       setIsLoading(true)
       await loading(2)
       dispatch(setUser({ username: formData.username, isAuthenticated: true }))
-    } catch {
-      console.log('error')
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        console.log(err.message)
+      }
     } finally {
       setIsLoading(false)
       navigate('/home')
     }
   }
 
-  const handleFormChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target
-
+  const updateForm = (name: string, value: string) => {
     setFormData(prev => ({
       ...prev,
       [name]: value,
@@ -74,7 +75,7 @@ export const Login = () => {
           placeholder='John Doe'
           name='username'
           type='text'
-          onChange={handleFormChange}
+          onChange={(e) => handleFormChange(e, (name: string, value: string) => updateForm(name, value))}
         />
 
         <S.LoginBtnWrapper>
