@@ -20,6 +20,7 @@ const GlobalStyles = createGlobalStyle`
     --red: #FF5151;
     --green: #47B960;
     --white: #FFF;
+    --transparent: transparent;
     --xxs: 0.875rem; // 14px
     --xs: 1rem; // 16px
     --sm: 1.125rem; // 18px

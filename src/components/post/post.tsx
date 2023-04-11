@@ -1,5 +1,6 @@
 import { ReactComponent as EditIcon } from '@/assets/icons/edit-icon.svg'
 import { ReactComponent as DeleteIcon } from '@/assets/icons/delete-icon.svg'
+import { Button } from '../button'
 
 import * as S from './styles'
 
@@ -10,13 +11,25 @@ export const Post = () => {
         <S.PostTitle>My First Post at CodeLeap Network!</S.PostTitle>
 
         <S.IconsWrapper>
-          <S.IconButton>
+          <Button
+            aria-label='delete-button'
+            type='button'
+            btnStyle='icon-only'
+            width='1.875em'
+            height='1.875em'
+          >
             <DeleteIcon />
-          </S.IconButton>
+          </Button>
 
-          <S.IconButton>
+          <Button
+            aria-label='edit-button'
+            type='button'
+            btnStyle='icon-only'
+            width='1.875em'
+            height='1.875em'
+          >
             <EditIcon />
-          </S.IconButton>
+          </Button>
         </S.IconsWrapper>
       </S.PostHeader>
 

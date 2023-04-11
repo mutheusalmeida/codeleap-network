@@ -1,14 +1,18 @@
 import { ButtonStyleType } from 'button'
 import styled, { css } from 'styled-components'
 
-type ButtonWrapperType = { isPressed: boolean} & ButtonStyleType
+type ButtonWrapperType = {
+  isPressed: boolean
+  width: string
+  height: string
+} & ButtonStyleType
 
 export const ButtonWrapper = styled.button<ButtonWrapperType>`
   display: flex;
   align-items: center;
   justify-content: center;
-  min-width: 7.5em;
-  height: 2em;
+  min-width: ${({ width }) => width};
+  height: ${({ height }) => height};
   font-weight: 700;
   font-size: var(--xs);
   line-height: 2em;
@@ -29,6 +33,17 @@ export const ButtonWrapper = styled.button<ButtonWrapperType>`
     color: var(--dark);
     background-color: transparent;
     border: 1px solid var(--gray-300);
+  `}
+
+  ${({ btnStyle }) => btnStyle === 'icon-only' && css`
+    background-color: var(--transparent);
+    padding: 0;
+
+    > svg {
+      width: inherit;
+      height: inherit;
+      max-width: inherit;
+    }
   `}
 
   &:disabled {

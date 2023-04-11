@@ -11,8 +11,10 @@ declare module 'modal' {
 declare module 'button' {
   export type ButtonStyleType = {
     bgColor?: string
-    btnStyle?: 'primary' | 'secondary'
+    btnStyle?: 'primary' | 'secondary' | 'icon-only'
     textCase?: 'uppercase' | 'capitalize'
+    width?: string
+    height?: string
   }
 }
 

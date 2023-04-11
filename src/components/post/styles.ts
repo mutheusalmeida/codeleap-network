@@ -19,17 +19,6 @@ export const PostTitle = styled(Title)`
   color: var(--white);
 `
 
-export const IconButton = styled.button`
-  ${defaultButton}
-  min-width: 1.875em;
-  min-height: 1.875em;
-
-  svg {
-    width: inherit;
-    height: 100%;
-  }
-`
-
 export const IconsWrapper = styled.div`
   display: flex;
   gap: 1.5em;
