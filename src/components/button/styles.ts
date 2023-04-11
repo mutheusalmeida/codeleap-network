@@ -32,10 +32,7 @@ export const ButtonWrapper = styled.button<ButtonWrapperType>`
   `}
 
   &:disabled {
-    background-color: var(--gray-100);
-    color: var(--gray-400);
-    opacity: 0.8;
-    filter: invert(0.1);
+    opacity: 0.5;
     cursor: initial;
   }
 
