@@ -1,5 +1,5 @@
 import { Input, InputWrapper, Label, Title } from '@/style'
-import { BaseButton } from '@/components/base-button'
+import { Button } from '@/components/button'
 import { ChangeEvent, FormEvent, useState } from 'react'
 import { loading } from '@/resources/utils/loading'
 import { Navigate, useLocation, useNavigate } from 'react-router-dom'
@@ -82,13 +82,13 @@ export const Login = () => {
         </InputWrapper>
 
         <S.LoginBtnWrapper>
-          <BaseButton
+          <Button
             type='submit'
             disabled={!formData.username}
             isLoading={isLoading}
           >
             Enter
-          </BaseButton>
+          </Button>
         </S.LoginBtnWrapper>
       </S.LoginForm>
     </Modal>

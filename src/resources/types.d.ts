@@ -8,8 +8,8 @@ declare module 'modal' {
 }
 }
 
-declare module 'base-button' {
-  export type BaseButtonStyleType = {
+declare module 'button' {
+  export type ButtonStyleType = {
     bgColor?: string
     btnStyle?: 'primary' | 'secondary'
     textCase?: 'uppercase' | 'capitalize'

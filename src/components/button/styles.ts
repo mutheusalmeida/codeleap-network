@@ -1,9 +1,9 @@
-import { BaseButtonStyleType } from 'base-button'
+import { ButtonStyleType } from 'button'
 import styled, { css } from 'styled-components'
 
-type BaseButtonWrapperType = BaseButtonStyleType
+type ButtonWrapperType = { isPressed: boolean} & ButtonStyleType
 
-export const BaseButtonWrapper = styled.button<BaseButtonWrapperType>`
+export const ButtonWrapper = styled.button<ButtonWrapperType>`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -32,14 +32,20 @@ export const BaseButtonWrapper = styled.button<BaseButtonWrapperType>`
   `}
 
   &:disabled {
-    opacity: 0.5;
-    background-color: var(--gray-400);
-    cursor: not-allowed;
+    background-color: var(--gray-100);
+    color: var(--gray-400);
+    opacity: 0.8;
+    filter: invert(0.1);
+    cursor: initial;
+  }
+
+  &:not(:disabled) {
+    opacity: ${({ isPressed }) => isPressed ? 0.8 : 1};
+    scale: ${({ isPressed }) => isPressed ? 0.991 : 1};
   }
 
   @media not all and (hover: none) {
-    &:hover,
-    &:focus {
+    &:hover:not(:disabled) {
       opacity: 0.8;
     }
   }

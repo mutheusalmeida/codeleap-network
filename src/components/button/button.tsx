@@ -1,18 +1,19 @@
-import { ReactNode } from 'react'
-import { BaseButtonStyleType } from 'base-button'
+import { ReactNode, useRef } from 'react'
+import { ButtonStyleType } from 'button'
 import { Spinner } from '../spinner'
+import { useButton } from 'react-aria'
 
 import * as S from './styles'
 
-type BaseButtonProps = {
+type ButtonProps = {
   children: ReactNode
   type: 'button' | 'reset' | 'submit' | undefined
   handleClick?: () => void
   isLoading?: boolean
   disabled?: boolean
-} & BaseButtonStyleType
+} & ButtonStyleType
 
-export const BaseButton = ({
+export const Button = ({
   children,
   type,
   handleClick,
@@ -21,15 +22,22 @@ export const BaseButton = ({
   bgColor = '--primary-color',
   btnStyle = 'primary',
   textCase = 'uppercase',
-}: BaseButtonProps) => {
+  ...props
+}: ButtonProps) => {
+  const ref = useRef(null)
+  const { buttonProps, isPressed } = useButton(props, ref)
+
   return (
-    <S.BaseButtonWrapper
+    <S.ButtonWrapper
+      {...buttonProps}
       type={type}
       onClick={handleClick}
       disabled={disabled}
       bgColor={bgColor}
       btnStyle={btnStyle}
       textCase={textCase}
+      isPressed={isPressed}
+      ref={ref}
     >
       {isLoading
         ? (
@@ -38,6 +46,6 @@ export const BaseButton = ({
         : (
           <>{children}</>
           )}
-    </S.BaseButtonWrapper>
+    </S.ButtonWrapper>
   )
 }
