@@ -1,13 +1,5 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
-
-type UserType = {
-  username: undefined | string
-  isAuthenticated: boolean
-}
-
-export type UserSliceType = {
-  user: UserType
-}
+import { UserSliceType, UserType } from 'user'
 
 const initialState: UserSliceType = {
   user: {

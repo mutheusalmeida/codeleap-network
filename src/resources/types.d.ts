@@ -13,3 +13,14 @@ declare module 'base-button' {
     textCase?: 'uppercase' | 'capitalize'
   }
 }
+
+declare module 'user' {
+  export type UserType = {
+    username: undefined | string
+    isAuthenticated: boolean
+  }
+
+  export type UserSliceType = {
+    user: UserType
+  }
+}

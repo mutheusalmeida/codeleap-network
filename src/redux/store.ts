@@ -1,9 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit'
-import userReducer, { UserSliceType } from './slices/user-slice'
+import userReducer from './slices/user-slice'
 import storage from 'redux-persist/lib/storage'
 import autoMergeLevel2 from 'redux-persist/lib/stateReconciler/autoMergeLevel2'
 import { persistReducer, persistStore } from 'redux-persist'
 import thunk from 'redux-thunk'
+import { UserSliceType } from 'user'
 
 const persistConfig = {
   key: 'auth',
