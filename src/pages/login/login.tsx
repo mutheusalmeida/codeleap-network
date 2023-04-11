@@ -1,4 +1,4 @@
-import { Input, InputWrapper, Label, Title } from '@/style'
+import { Title } from '@/style'
 import { Button } from '@/components/button'
 import { ChangeEvent, FormEvent, useState } from 'react'
 import { loading } from '@/resources/utils/loading'
@@ -11,6 +11,7 @@ import { useOverlayTrigger } from 'react-aria'
 import useModal from '@/hooks/use-modal'
 
 import * as S from './styles'
+import { TextField } from '@/components/text-field'
 
 export const Login = () => {
   const [formData, setFormData] = useState({
@@ -68,18 +69,13 @@ export const Login = () => {
       >
         <Title id='modal-title' tabIndex={0}>Welcome to CodeLeap network!</Title>
 
-        <InputWrapper>
-          <Label htmlFor='username'>Please enter your username</Label>
-
-          <Input
-            id='username'
-            name='username'
-            type='text'
-            placeholder='John Doe'
-            value={formData.username}
-            onChange={handleFormChange}
-          />
-        </InputWrapper>
+        <TextField
+          label='Please enter your username'
+          placeholder='John Doe'
+          name='username'
+          type='text'
+          onChange={handleFormChange}
+        />
 
         <S.LoginBtnWrapper>
           <Button
