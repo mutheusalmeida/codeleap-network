@@ -1,13 +1,26 @@
-import { ModalRefType } from 'modal'
-import { useRef } from 'react'
+import { ModalState } from 'modal'
+import { useCallback, useState } from 'react'
 
-export const useModal = () => {
-  const ModalRefType = useRef<ModalRefType>(null)
+type useModalProps = {
+  isCurrentlyOpen?: boolean
+}
+
+const useModal = ({ isCurrentlyOpen = false }: useModalProps = {}): ModalState => {
+  const [isOpen, setOpen] = useState(isCurrentlyOpen)
+
+  const open = useCallback(() => setOpen(true), [])
+
+  const close = useCallback(() => setOpen(false), [])
+
+  const toggle = useCallback(() => setOpen(prev => !prev), [])
 
   return {
-    ref: ModalRefType,
-    open: () => ModalRefType.current?.open(),
-    close: () => ModalRefType.current?.close(),
-    isOpen: () => ModalRefType.current?.isOpen,
+    isOpen,
+    setOpen,
+    open,
+    close,
+    toggle,
   }
 }
+
+export default useModal

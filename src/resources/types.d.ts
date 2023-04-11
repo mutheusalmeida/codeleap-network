@@ -1,9 +1,11 @@
 declare module 'modal' {
-  export type ModalRefType = {
-    close: () => void
-    open: () => void
-    isOpen: boolean
-  }
+  export type ModalState = {
+    readonly isOpen: boolean;
+    setOpen(isOpen: boolean): void;
+    open(): void;
+    close(): void;
+    toggle(): void;
+}
 }
 
 declare module 'base-button' {

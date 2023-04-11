@@ -1,5 +1,3 @@
-import { BaseModal } from '@/components/base-modal'
-import { useModal } from '@/hooks/use-modal'
 import { Input, InputWrapper, Label, Title } from '@/style'
 import { BaseButton } from '@/components/base-button'
 import { ChangeEvent, FormEvent, useState } from 'react'
@@ -8,11 +6,13 @@ import { Navigate, useLocation, useNavigate } from 'react-router-dom'
 import { useAppDispatch } from '@/hooks/use-app-dispatch'
 import { setUser } from '@/redux/slices/user-slice'
 import { useAppSelector } from '@/hooks/use-app-selector'
+import { Modal } from '@/components/modal'
+import { useOverlayTrigger } from 'react-aria'
+import useModal from '@/hooks/use-modal'
 
 import * as S from './styles'
 
 export const Login = () => {
-  const { ref: loginModalRef } = useModal()
   const [formData, setFormData] = useState({
     username: '',
   })
@@ -21,6 +21,11 @@ export const Login = () => {
   const dispatch = useAppDispatch()
   const { isAuthenticated } = useAppSelector(state => state.user.user)
   const location = useLocation()
+  const state = useModal({ isCurrentlyOpen: true })
+  const { overlayProps } = useOverlayTrigger(
+    { type: 'dialog' },
+    state,
+  )
 
   const handleFormSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -51,11 +56,12 @@ export const Login = () => {
   }
 
   return (
-    <BaseModal
-      ref={loginModalRef}
-      defaultOpen
+    <Modal
+      aria-labelledby='modal-title'
+      state={state}
       hasOverlay={false}
-      closeOnOutsideClick={false}
+      isKeyboardDismissDisabled
+      {...overlayProps}
     >
       <S.LoginForm
         onSubmit={handleFormSubmit}
@@ -85,6 +91,6 @@ export const Login = () => {
           </BaseButton>
         </S.LoginBtnWrapper>
       </S.LoginForm>
-    </BaseModal>
+    </Modal>
   )
 }
