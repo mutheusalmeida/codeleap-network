@@ -5,7 +5,7 @@ import { Title } from '@/style'
 import { TextField } from '@/components/text-field'
 import { Button } from '@/components/button'
 import { FormEvent, useState } from 'react'
-import { handleFormChange } from '@/resources/utils/handleFormChange'
+import { handleFormChange } from '@/resources/utils/handle-form-change'
 import { loading } from '@/resources/utils/loading'
 
 import * as S from './styles'
@@ -18,13 +18,6 @@ export const Home = () => {
   const { username } = useAppSelector(state => state.user.user)
   const dispatch = useAppDispatch()
   const [isLoading, setIsLoading] = useState(false)
-
-  const updateForm = (name: string, value: string) => {
-    setFormData(prev => ({
-      ...prev,
-      [name]: value,
-    }))
-  }
 
   const handleFormSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -69,14 +62,14 @@ export const Home = () => {
               label='Title'
               name='title'
               placeholder='Hello, world!'
-              onChange={(e) => handleFormChange(e, (name: string, value: string) => updateForm(name, value))}
+              onChange={(e) => handleFormChange(e, setFormData)}
             />
 
             <TextField
               label='Content'
               name='content'
               placeholder='Your content here'
-              onChange={(e) => handleFormChange(e, (name: string, value: string) => updateForm(name, value))}
+              onChange={(e) => handleFormChange(e, setFormData)}
               inputElementType='textarea'
             />
 

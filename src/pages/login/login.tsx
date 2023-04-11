@@ -1,6 +1,6 @@
 import { Title } from '@/style'
 import { Button } from '@/components/button'
-import { ChangeEvent, FormEvent, useState } from 'react'
+import { FormEvent, useState } from 'react'
 import { loading } from '@/resources/utils/loading'
 import { Navigate, useLocation, useNavigate } from 'react-router-dom'
 import { useAppDispatch } from '@/hooks/use-app-dispatch'
@@ -10,7 +10,7 @@ import { Modal } from '@/components/modal'
 import { useOverlayTrigger } from 'react-aria'
 import useModal from '@/hooks/use-modal'
 import { TextField } from '@/components/text-field'
-import { handleFormChange } from '@/resources/utils/handleFormChange'
+import { handleFormChange } from '@/resources/utils/handle-form-change'
 
 import * as S from './styles'
 
@@ -46,13 +46,6 @@ export const Login = () => {
     }
   }
 
-  const updateForm = (name: string, value: string) => {
-    setFormData(prev => ({
-      ...prev,
-      [name]: value,
-    }))
-  }
-
   if (isAuthenticated) {
     return <Navigate to='/home' state={{ from: location }} replace />
   }
@@ -75,7 +68,7 @@ export const Login = () => {
           placeholder='John Doe'
           name='username'
           type='text'
-          onChange={(e) => handleFormChange(e, (name: string, value: string) => updateForm(name, value))}
+          onChange={(e) => handleFormChange(e, setFormData)}
         />
 
         <S.LoginBtnWrapper>
