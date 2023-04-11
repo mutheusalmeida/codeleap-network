@@ -9,9 +9,9 @@ import { useAppSelector } from '@/hooks/use-app-selector'
 import { Modal } from '@/components/modal'
 import { useOverlayTrigger } from 'react-aria'
 import useModal from '@/hooks/use-modal'
+import { TextField } from '@/components/text-field'
 
 import * as S from './styles'
-import { TextField } from '@/components/text-field'
 
 export const Login = () => {
   const [formData, setFormData] = useState({

@@ -1,3 +1,53 @@
+import { Title } from '@/style'
+import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
-export const HomeWrapper = styled.div``
+export const HomeWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+`
+
+export const HomeContainer = styled.div`
+  width: 100%;
+  max-width: 800px;
+  background-color: var(--white);
+`
+
+export const HomeHeader = styled.header`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 80px;
+  padding: 0 37px;
+  background-color: var(--primary-color);
+`
+
+export const HomeTitle = styled(Title)`
+  color: var(--white);
+`
+
+export const UserWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+`
+
+export const UserGreeting = styled(Title)`
+  font-size: var(--xs);
+  font-weight: 400;
+  color: var(--white);
+`
+
+export const LogoutLink = styled(Link)`
+  font-size: var(--xxs);
+  font-weight: 500;
+  color: var(--white);
+  text-decoration: none;
+
+  &:hover,
+  &:focus {
+    text-decoration: underline;
+  }
+`
+
+export const HomeContent = styled.div``
