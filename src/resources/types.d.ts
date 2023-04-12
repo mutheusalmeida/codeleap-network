@@ -28,3 +28,19 @@ declare module 'user' {
     user: UserType
   }
 }
+
+declare module 'posts' {
+  export type PostType = {
+    id: number
+    username: string
+    created_datetime: Date
+    title: string
+    content: string
+  }
+
+  export type GetPostsType = PostType[]
+
+  export type CreatePostType = Omit<PostType, 'id' | 'created_datetime'>
+
+  export type UpdatePostType = Omit<CreatePostType, 'username'>
+}
