@@ -49,8 +49,8 @@ const postsSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: {
-    [getPosts.fulfilled as unknown as ExtraReducerType]: (state, action: PayloadAction<PostType[]>) => {
-      state.posts = [...action.payload]
+    [getPosts.fulfilled as unknown as ExtraReducerType]: (state, action: PayloadAction<{ results: PostType[]}>) => {
+      state.posts = [...action.payload.results]
     },
     [createPost.fulfilled as unknown as ExtraReducerType]: (_state, action: PayloadAction<CreatePostType>) => {
       console.log(action.payload)

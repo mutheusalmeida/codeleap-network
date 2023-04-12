@@ -1,14 +1,26 @@
+/* eslint-disable camelcase */
 import { ReactComponent as EditIcon } from '@/assets/icons/edit-icon.svg'
 import { ReactComponent as DeleteIcon } from '@/assets/icons/delete-icon.svg'
 import { Button } from '../button'
+import { PostType } from 'posts'
 
 import * as S from './styles'
 
-export const Post = () => {
+type PostProps = PostType
+
+export const Post = ({
+  id,
+  username,
+  created_datetime,
+  title,
+  content,
+}: PostProps) => {
+  console.log(created_datetime)
+
   return (
     <S.PostWrapper>
       <S.PostHeader>
-        <S.PostTitle>My First Post at CodeLeap Network!</S.PostTitle>
+        <S.PostTitle>{title}</S.PostTitle>
 
         <S.IconsWrapper>
           <Button
@@ -35,13 +47,13 @@ export const Post = () => {
 
       <S.PostBody>
         <S.PostInfo>
-          <S.PostUser>@Victor</S.PostUser>
+          <S.PostUser>@{username}</S.PostUser>
 
-          <S.PostTime>25 minutes ago</S.PostTime>
+          <S.PostTime>{new Date(created_datetime).getDate()} minutes ago</S.PostTime>
         </S.PostInfo>
 
         <S.PostContent as='p'>
-          Curabitur suscipit suscipit tellus. Phasellus consectetuer vestibulum elit. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Maecenas egestas arcu quis ligula mattis placerat. Duis vel nibh at velit scelerisque suscipit. Duis lobortis massa imperdiet quam. Aenean posuere, tortor sed cursus feugiat, nunc augue blandit nunc, eu sollicitudin urna dolor sagittis lacus. Fusce a quam. Nullam vel sem. Nullam cursus lacinia erat.
+          {content}
         </S.PostContent>
       </S.PostBody>
     </S.PostWrapper>

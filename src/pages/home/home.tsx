@@ -4,12 +4,12 @@ import { setUser } from '@/redux/slices/user-slice'
 import { Title } from '@/style'
 import { TextField } from '@/components/text-field'
 import { Button } from '@/components/button'
-import { FormEvent, useState } from 'react'
+import { FormEvent, useCallback, useEffect, useState } from 'react'
 import { handleFormChange } from '@/resources/utils/handle-form-change'
-import { loading } from '@/resources/utils/loading'
+import { Post } from '@/components/post'
+import { createPost, getPosts } from '@/redux/slices/posts-slice'
 
 import * as S from './styles'
-import { Post } from '@/components/post'
 
 export const Home = () => {
   const [formData, setFormData] = useState({
@@ -17,17 +17,20 @@ export const Home = () => {
     content: '',
   })
   const { username } = useAppSelector(state => state.user.user)
+  const posts = useAppSelector(state => state.posts.posts)
   const dispatch = useAppDispatch()
   const [isLoading, setIsLoading] = useState(false)
 
   const handleFormSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+    const { title, content } = formData
 
     try {
       setIsLoading(true)
 
-      console.log(formData)
-      await loading(2)
+      if (username) {
+        dispatch(createPost({ username, title, content }))
+      }
     } catch (err: unknown) {
       if (err instanceof Error) {
         console.log(err.message)
@@ -36,6 +39,14 @@ export const Home = () => {
       setIsLoading(false)
     }
   }
+
+  const initFetch = useCallback(() => {
+    dispatch(getPosts())
+  }, [dispatch])
+
+  useEffect(() => {
+    initFetch()
+  }, [initFetch])
 
   return (
     <S.HomeWrapper>
@@ -84,7 +95,16 @@ export const Home = () => {
             </Button>
           </S.PostForm>
 
-          <Post />
+          {posts.map(post => (
+            <Post
+              key={post.id}
+              id={post.id}
+              username={post.username}
+              created_datetime={post.created_datetime}
+              title={post.title}
+              content={post.content}
+            />
+          ))}
         </S.HomeContent>
       </S.HomeContainer>
     </S.HomeWrapper>
