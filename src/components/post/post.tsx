@@ -35,7 +35,7 @@ export const Post = ({
   const [showActions, setShowActions] = useState(false)
   const state = useModal()
   const editModalState = useModal()
-  const { isLoading } = useAppSelector(state => state.posts)
+  const { status } = useAppSelector(state => state.posts)
   const { overlayProps } = useOverlayTrigger(
     { type: 'dialog' },
     state,
@@ -50,14 +50,33 @@ export const Post = ({
     e.preventDefault()
 
     dispatch(updatePost({ id, data: formData }))
-    setFormData(initialState)
-    editModalState.close()
+      .unwrap()
+      .then((res: PostType) => res)
+      .catch((err: unknown) => {
+        if (err instanceof Error) {
+          console.log(err.message)
+        }
+      })
+      .finally(() => {
+        editModalState.close()
+        setFormData(initialState)
+      })
   }
 
   const handleDeletePostFormSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
     dispatch(deletePost({ id }))
+      .unwrap()
+      .then((res: PostType) => res)
+      .catch((err: unknown) => {
+        if (err instanceof Error) {
+          console.log(err.message)
+        }
+      })
+      .finally(() => {
+        state.close()
+      })
   }
 
   const isActionsVisible = user.username === username && showActions
@@ -88,7 +107,7 @@ export const Post = ({
               btnStyle='primary'
               textCase='capitalize'
               bgColor='--red'
-              isLoading={isLoading}
+              isLoading={status === 'deleting'}
             >
               Delete
             </Button>
@@ -138,7 +157,7 @@ export const Post = ({
               textCase='capitalize'
               bgColor='--green'
               disabled={!formData.title || !formData.content}
-              isLoading={isLoading}
+              isLoading={status === 'editing'}
             >
               Save
             </Button>

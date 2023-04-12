@@ -1,5 +1,4 @@
-import { AnyAction } from '@reduxjs/toolkit'
-import { Dispatch } from 'react'
+import store from '@/redux/store'
 import { useDispatch } from 'react-redux'
 
-export const useAppDispatch: () => Dispatch<AnyAction | any> = useDispatch
+export const useAppDispatch = () => useDispatch<typeof store.dispatch | any>()

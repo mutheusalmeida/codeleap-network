@@ -12,6 +12,6 @@ export const postsService = {
     return codeleapApi.patch(`/${id}/`, data)
   },
   deletePost: (id: number) => {
-    return codeleapApi.patch(`/${id}/`)
+    return codeleapApi.delete(`/${id}/`)
   },
 }

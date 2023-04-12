@@ -9,6 +9,7 @@ import { handleFormChange } from '@/resources/utils/handle-form-change'
 import { Post } from '@/components/post'
 import { createPost, getPosts } from '@/redux/slices/posts-slice'
 import { Spinner } from '@/components/spinner'
+import { PostType } from 'posts'
 
 import * as S from './styles'
 
@@ -19,7 +20,7 @@ export const Home = () => {
   }
   const [formData, setFormData] = useState(initialState)
   const { username } = useAppSelector(state => state.user.user)
-  const { posts, isLoading, status } = useAppSelector(state => state.posts)
+  const { posts, status } = useAppSelector(state => state.posts)
   const dispatch = useAppDispatch()
 
   const handleFormSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -28,7 +29,16 @@ export const Home = () => {
 
     if (username) {
       dispatch(createPost({ username, title, content }))
-      setFormData(initialState)
+        .unwrap()
+        .then((res: PostType) => res)
+        .catch((err: unknown) => {
+          if (err instanceof Error) {
+            console.log(err.message)
+          }
+        })
+        .finally(() => {
+          setFormData(initialState)
+        })
     }
   }
 
@@ -82,7 +92,7 @@ export const Home = () => {
             <Button
               type='submit'
               disabled={!formData.title || !formData.content}
-              isLoading={isLoading}
+              isLoading={status === 'creating'}
               textCase='capitalize'
             >
               Create

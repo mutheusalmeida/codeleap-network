@@ -9,7 +9,6 @@ type PostsErrorType = {
 const initialState: PostsSiceType = {
   posts: [],
   status: 'idle',
-  isLoading: false,
   error: null,
 }
 
@@ -66,6 +65,7 @@ const postsSlice = createSlice({
     })
 
     builder.addCase(getPosts.fulfilled, (state, action) => {
+      console.log(action.payload.results)
       state.posts = [...action.payload.results]
       state.status = 'idle'
     })
@@ -77,16 +77,20 @@ const postsSlice = createSlice({
     })
 
     builder.addCase(createPost.pending, (state, _action) => {
-      state.isLoading = true
+      state.status = 'creating'
     })
 
     builder.addCase(createPost.fulfilled, (state, { payload }) => {
       state.posts = [payload, ...state.posts]
-      state.isLoading = false
+      state.status = 'idle'
+    })
+
+    builder.addCase(createPost.rejected, (state, _action) => {
+      state.status = 'idle'
     })
 
     builder.addCase(updatePost.pending, (state, _action) => {
-      state.isLoading = true
+      state.status = 'editing'
     })
 
     builder.addCase(updatePost.fulfilled, (state, { payload }) => {
@@ -101,16 +105,24 @@ const postsSlice = createSlice({
         return post
       })
 
-      state.isLoading = false
+      state.status = 'idle'
+    })
+
+    builder.addCase(updatePost.rejected, (state, _action) => {
+      state.status = 'idle'
     })
 
     builder.addCase(deletePost.pending, (state, _action) => {
-      state.isLoading = true
+      state.status = 'deleting'
     })
 
     builder.addCase(deletePost.fulfilled, (state, { payload }) => {
       state.posts = state.posts.filter(post => post.id !== payload.id)
-      state.isLoading = false
+      state.status = 'idle'
+    })
+
+    builder.addCase(deletePost.rejected, (state, _action) => {
+      state.status = 'idle'
     })
   },
 })
