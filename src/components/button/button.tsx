@@ -22,8 +22,8 @@ export const Button = ({
   bgColor = '--primary-color',
   btnStyle = 'primary',
   textCase = 'uppercase',
-  width = '7.5em',
-  height = '2em',
+  btnWidth = '7.5em',
+  btnHeight = '2em',
   ...props
 }: ButtonProps) => {
   const ref = useRef(null)
@@ -39,8 +39,8 @@ export const Button = ({
       btnStyle={btnStyle}
       textCase={textCase}
       isPressed={isPressed}
-      width={width}
-      height={height}
+      btnWidth={btnWidth}
+      btnHeight={btnHeight}
       ref={ref}
     >
       {isLoading

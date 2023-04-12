@@ -13,8 +13,8 @@ declare module 'button' {
     bgColor?: string
     btnStyle?: 'primary' | 'secondary' | 'icon-only'
     textCase?: 'uppercase' | 'capitalize'
-    width?: string
-    height?: string
+    btnWidth?: string
+    btnHeight?: string
   }
 }
 

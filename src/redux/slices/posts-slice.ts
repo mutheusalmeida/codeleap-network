@@ -1,5 +1,5 @@
 import { postsService } from '@/services/posts-service'
-import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit'
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { CreatePostType, GetPostsType, PostType, UpdatePostType } from 'posts'
 
 type PostsError = {

@@ -35,8 +35,8 @@ export const Post = ({
             aria-label='delete-button'
             type='button'
             btnStyle='icon-only'
-            width='1.875em'
-            height='1.875em'
+            btnWidth='1.875em'
+            btnHeight='1.875em'
           >
             <DeleteIcon />
           </Button>
@@ -45,8 +45,8 @@ export const Post = ({
             aria-label='edit-button'
             type='button'
             btnStyle='icon-only'
-            width='1.875em'
-            height='1.875em'
+            btnWidth='1.875em'
+            btnHeight='1.875em'
           >
             <EditIcon />
           </Button>

@@ -3,16 +3,14 @@ import styled, { css } from 'styled-components'
 
 type ButtonWrapperType = {
   isPressed: boolean
-  width: string
-  height: string
 } & ButtonStyleType
 
 export const ButtonWrapper = styled.button<ButtonWrapperType>`
   display: flex;
   align-items: center;
   justify-content: center;
-  min-width: ${({ width }) => width};
-  height: ${({ height }) => height};
+  min-width: ${({ btnWidth }) => btnWidth};
+  height: ${({ btnHeight }) => btnHeight};
   font-weight: 700;
   font-size: var(--xs);
   line-height: 2em;
