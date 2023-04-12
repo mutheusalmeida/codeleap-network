@@ -1,6 +1,6 @@
 import { ReactNode, useRef } from 'react'
 import { ButtonStyleType } from 'button'
-import { Spinner } from '../spinner'
+import { Spinner } from '@/components/spinner'
 import { useButton } from 'react-aria'
 
 import * as S from './styles'

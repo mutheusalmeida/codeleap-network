@@ -8,7 +8,9 @@ type PostsErrorType = {
 
 const initialState: PostsSiceType = {
   posts: [],
+  status: 'idle',
   isLoading: false,
+  error: null,
 }
 
 export const getPosts = createAsyncThunk<GetPostsType, void, { rejectValue: PostsErrorType }>(
@@ -58,31 +60,57 @@ const postsSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
+    builder.addCase(getPosts.pending, (state, _action) => {
+      state.status = 'loading'
+      state.error = null
+    })
+
     builder.addCase(getPosts.fulfilled, (state, action) => {
       state.posts = [...action.payload.results]
+      state.status = 'idle'
+    })
+
+    builder.addCase(getPosts.rejected, (state, { payload }) => {
+      if (payload) state.error = payload.message
+
+      state.status = 'idle'
     })
 
     builder.addCase(createPost.pending, (state, _action) => {
       state.isLoading = true
     })
 
-    builder.addCase(createPost.fulfilled, (state, _action) => {
+    builder.addCase(createPost.fulfilled, (state, { payload }) => {
+      state.posts = [payload, ...state.posts]
       state.isLoading = false
     })
 
-    builder.addCase(updatePost.fulfilled, (state, action) => {
-      const index = state.posts.findIndex(({ id }) => id === action.payload.id)
-
-      state.posts[index] = {
-        ...state.posts[index],
-        ...action.payload.data,
-      }
+    builder.addCase(updatePost.pending, (state, _action) => {
+      state.isLoading = true
     })
 
-    builder.addCase(deletePost.fulfilled, (state, action) => {
-      const index = state.posts.findIndex(({ id }) => id === action.payload.id)
+    builder.addCase(updatePost.fulfilled, (state, { payload }) => {
+      state.posts = state.posts.map(post => {
+        if (post.id === payload.id) {
+          return {
+            ...post,
+            ...payload,
+          }
+        }
 
-      state.posts.splice(index, 1)
+        return post
+      })
+
+      state.isLoading = false
+    })
+
+    builder.addCase(deletePost.pending, (state, _action) => {
+      state.isLoading = true
+    })
+
+    builder.addCase(deletePost.fulfilled, (state, { payload }) => {
+      state.posts = state.posts.filter(post => post.id !== payload.id)
+      state.isLoading = false
     })
   },
 })

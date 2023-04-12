@@ -8,6 +8,7 @@ import { FormEvent, useCallback, useEffect, useState } from 'react'
 import { handleFormChange } from '@/resources/utils/handle-form-change'
 import { Post } from '@/components/post'
 import { createPost, getPosts } from '@/redux/slices/posts-slice'
+import { Spinner } from '@/components/spinner'
 
 import * as S from './styles'
 
@@ -18,10 +19,10 @@ export const Home = () => {
   }
   const [formData, setFormData] = useState(initialState)
   const { username } = useAppSelector(state => state.user.user)
-  const { posts, isLoading } = useAppSelector(state => state.posts)
+  const { posts, isLoading, status } = useAppSelector(state => state.posts)
   const dispatch = useAppDispatch()
 
-  const handleFormSubmit = async (e: FormEvent<HTMLFormElement>) => {
+  const handleFormSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const { title, content } = formData
 
@@ -37,7 +38,7 @@ export const Home = () => {
 
   useEffect(() => {
     renderPosts()
-  }, [renderPosts, isLoading])
+  }, [renderPosts])
 
   return (
     <S.HomeWrapper>
@@ -88,16 +89,26 @@ export const Home = () => {
             </Button>
           </S.PostForm>
 
-          {posts.map(post => (
-            <Post
-              key={post.id}
-              id={post.id}
-              username={post.username}
-              created_datetime={post.created_datetime}
-              title={post.title}
-              content={post.content}
-            />
-          ))}
+          {status === 'loading'
+            ? (
+              <S.SpinnerWrapper>
+                <Spinner width={24} height={24} color='var(--primary-color)' />
+              </S.SpinnerWrapper>
+              )
+            : (
+              <>
+                {posts.map(post => (
+                  <Post
+                    key={post.id}
+                    id={post.id}
+                    username={post.username}
+                    created_datetime={post.created_datetime}
+                    title={post.title}
+                    content={post.content}
+                  />
+                ))}
+              </>
+              )}
         </S.HomeContent>
       </S.HomeContainer>
     </S.HomeWrapper>

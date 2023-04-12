@@ -59,3 +59,21 @@ export const PostTime = styled(PostUser)`
 export const PostContent = styled(PostTime)`
   color: var(--dark);
 `
+
+export const DeleteForm = styled.form`
+  display: flex;
+  flex-direction: column;
+  gap: 2.5em;
+  width: 41.25em;
+  max-width: 100%;
+`
+
+export const EditForm = styled(DeleteForm)`
+  gap: 1.5em;
+`
+
+export const BtnWrapper = styled.div`
+  display: flex;
+  align-self: end;
+  gap: 1em;
+`

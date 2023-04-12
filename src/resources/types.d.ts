@@ -40,7 +40,9 @@ declare module 'posts' {
 
   export type PostsSiceType = {
     posts: PostType[]
+    status: 'idle' | 'loading'
     isLoading: boolean
+    error: null | string
   }
 
   export type GetPostsType = {

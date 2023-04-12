@@ -9,9 +9,9 @@ export const postsService = {
     return codeleapApi.post('/', data)
   },
   updatePost: (id: number, data: UpdatePostType) => {
-    return codeleapApi.patch(`/${id}`, data)
+    return codeleapApi.patch(`/${id}/`, data)
   },
   deletePost: (id: number) => {
-    return codeleapApi.patch(`/${id}`)
+    return codeleapApi.patch(`/${id}/`)
   },
 }

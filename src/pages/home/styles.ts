@@ -62,6 +62,13 @@ export const HomeContent = styled.main`
   gap: 1.5em;
 `
 
+export const SpinnerWrapper = styled.main`
+  display: flex;
+  padding: 1em 0;
+  align-items: center;
+  justify-content: center;
+`
+
 export const PostForm = styled(HomeContent)`
   padding: 1.5em;
   display: flex;
