@@ -8,10 +8,10 @@ import { FormEvent, useCallback, useEffect, useState } from 'react'
 import { handleFormChange } from '@/resources/utils/handle-form-change'
 import { Post } from '@/components/post'
 import { createPost, getPosts } from '@/redux/slices/posts-slice'
+import { CreatePostType } from 'posts'
+import { AsyncThunkAction } from '@reduxjs/toolkit'
 
 import * as S from './styles'
-import { AsyncThunkAction } from '@reduxjs/toolkit'
-import { CreatePostType } from 'posts'
 
 export const Home = () => {
   const initialState = {

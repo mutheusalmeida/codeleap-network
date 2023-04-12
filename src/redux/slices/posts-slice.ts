@@ -1,28 +1,42 @@
 import { postsService } from '@/services/posts-service'
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import { CreatePostType, PostType, UpdatePostType } from 'posts'
+import { CreatePostType, GetPostsType, PostType, UpdatePostType } from 'posts'
 
 type ExtraReducerType = 'string' | 'number' | 'symbol' | 'any'
 
-const initialState: { posts: PostType[] } = {
+type PostsError = {
+  message: string;
+}
+
+type PostsState = {
+  posts: PostType[]
+}
+
+const initialState: PostsState = {
   posts: [],
 }
 
-export const getPosts = createAsyncThunk(
+export const getPosts = createAsyncThunk<GetPostsType, void, { rejectValue: PostsError }>(
   'posts/get',
-  async () => {
+  async (_, thunkApi) => {
     const res = await postsService.getPosts()
 
-    return res.data
+    if (res.status !== 200) {
+      return thunkApi.rejectWithValue({
+        message: 'Failed to fetch posts',
+      })
+    }
+
+    return res.data as GetPostsType
   },
 )
 
-export const createPost = createAsyncThunk(
+export const createPost = createAsyncThunk<PostType, CreatePostType>(
   'posts/create',
-  async ({ username, title, content }: CreatePostType) => {
+  async ({ username, title, content }) => {
     const res = await postsService.createPost({ username, title, content })
 
-    return res.data
+    return res.data as PostType
   },
 )
 

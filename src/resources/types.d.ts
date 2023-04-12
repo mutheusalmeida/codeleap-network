@@ -38,6 +38,13 @@ declare module 'posts' {
     content: string
   }
 
+  export type GetPostsType = {
+    count: number
+    next: string | null
+    previous: string | null
+    results: PostType[]
+  }
+
   export type CreatePostType = Omit<PostType, 'id' | 'created_datetime'>
 
   export type UpdatePostType = Omit<CreatePostType, 'username'>
