@@ -1,7 +1,7 @@
 import { CreatePostType, UpdatePostType } from 'posts'
 import { codeleapApi } from './api'
 
-export const posts = {
+export const postsService = {
   getPosts: () => {
     return codeleapApi.get('/')
   },
