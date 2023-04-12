@@ -136,6 +136,7 @@ export const Post = ({
               btnStyle='primary'
               textCase='capitalize'
               bgColor='--green'
+              disabled={!formData.title || !formData.content}
               isLoading={isLoading}
             >
               Save

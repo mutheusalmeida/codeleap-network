@@ -81,7 +81,7 @@ export const Home = () => {
 
             <Button
               type='submit'
-              disabled={false}
+              disabled={!formData.title || !formData.content}
               isLoading={isLoading}
               textCase='capitalize'
             >
