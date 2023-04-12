@@ -38,6 +38,11 @@ declare module 'posts' {
     content: string
   }
 
+  export type PostsSiceType = {
+    posts: PostType[]
+    isLoading: boolean
+  }
+
   export type GetPostsType = {
     count: number
     next: string | null

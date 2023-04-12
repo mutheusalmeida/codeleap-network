@@ -6,6 +6,7 @@ import autoMergeLevel2 from 'redux-persist/lib/stateReconciler/autoMergeLevel2'
 import { persistReducer, persistStore } from 'redux-persist'
 import thunk from 'redux-thunk'
 import { UserSliceType } from 'user'
+import { PostsSiceType } from 'posts'
 
 const persistConfig = {
   key: 'auth',
@@ -13,12 +14,19 @@ const persistConfig = {
   stateReconciler: autoMergeLevel2,
 }
 
-const persistedReducer = persistReducer<UserSliceType>(persistConfig, userReducer)
+const persistPostsConfig = {
+  key: 'posts',
+  storage,
+  stateReconciler: autoMergeLevel2,
+}
+
+const persistedUserReducer = persistReducer<UserSliceType>(persistConfig, userReducer)
+const persistedPostsReducer = persistReducer<PostsSiceType>(persistPostsConfig, postsReducer)
 
 const store = configureStore({
   reducer: {
-    user: persistedReducer,
-    posts: postsReducer,
+    user: persistedUserReducer,
+    posts: persistedPostsReducer,
   },
   middleware: [thunk],
   devTools: true,

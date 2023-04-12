@@ -1,22 +1,17 @@
 import { postsService } from '@/services/posts-service'
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import { CreatePostType, GetPostsType, PostType, UpdatePostType } from 'posts'
+import { CreatePostType, GetPostsType, PostType, PostsSiceType, UpdatePostType } from 'posts'
 
-type PostsError = {
+type PostsErrorType = {
   message: string;
 }
 
-type PostsState = {
-  posts: PostType[]
-  isLoading: boolean
-}
-
-const initialState: PostsState = {
+const initialState: PostsSiceType = {
   posts: [],
   isLoading: false,
 }
 
-export const getPosts = createAsyncThunk<GetPostsType, void, { rejectValue: PostsError }>(
+export const getPosts = createAsyncThunk<GetPostsType, void, { rejectValue: PostsErrorType }>(
   'posts/get',
   async (_, thunkApi) => {
     const res = await postsService.getPosts()
