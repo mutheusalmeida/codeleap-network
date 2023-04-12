@@ -65,7 +65,6 @@ const postsSlice = createSlice({
     })
 
     builder.addCase(getPosts.fulfilled, (state, action) => {
-      console.log(action.payload.results)
       state.posts = [...action.payload.results]
       state.status = 'idle'
     })
