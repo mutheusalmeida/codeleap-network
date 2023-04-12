@@ -2,8 +2,6 @@ import { postsService } from '@/services/posts-service'
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { CreatePostType, GetPostsType, PostType, UpdatePostType } from 'posts'
 
-type ExtraReducerType = 'string' | 'number' | 'symbol' | 'any'
-
 type PostsError = {
   message: string;
 }
@@ -40,18 +38,18 @@ export const createPost = createAsyncThunk<PostType, CreatePostType>(
   },
 )
 
-export const updatePost = createAsyncThunk(
+export const updatePost = createAsyncThunk<{ id: number, data: UpdatePostType }, { id: number, data: UpdatePostType }>(
   'posts/update',
-  async ({ id, data }: { id: string, data: UpdatePostType }) => {
+  async ({ id, data }) => {
     const res = await postsService.updatePost(id, data)
 
-    return res.data
+    return res.data as { id: number, data: UpdatePostType }
   },
 )
 
 export const deletePost = createAsyncThunk(
   'posts/delete',
-  async ({ id }: { id: string }) => {
+  async ({ id }: { id: number }) => {
     await postsService.deletePost(id)
 
     return { id }
@@ -62,26 +60,29 @@ const postsSlice = createSlice({
   name: 'posts',
   initialState,
   reducers: {},
-  extraReducers: {
-    [getPosts.fulfilled as unknown as ExtraReducerType]: (state, action: PayloadAction<{ results: PostType[]}>) => {
+  extraReducers: (builder) => {
+    builder.addCase(getPosts.fulfilled, (state, action) => {
       state.posts = [...action.payload.results]
-    },
-    [createPost.fulfilled as unknown as ExtraReducerType]: (_state, action: PayloadAction<CreatePostType>) => {
+    })
+
+    builder.addCase(createPost.fulfilled, (_state, action: PayloadAction<CreatePostType>) => {
       console.log(action.payload)
-    },
-    [updatePost.fulfilled as unknown as ExtraReducerType]: (state, action: PayloadAction<{ id: number, data: UpdatePostType}>) => {
+    })
+
+    builder.addCase(updatePost.fulfilled, (state, action) => {
       const index = state.posts.findIndex(({ id }) => id === action.payload.id)
 
       state.posts[index] = {
         ...state.posts[index],
         ...action.payload.data,
       }
-    },
-    [deletePost.fulfilled as unknown as ExtraReducerType]: (state, action: PayloadAction<{ id: number }>) => {
+    })
+
+    builder.addCase(deletePost.fulfilled, (state, action) => {
       const index = state.posts.findIndex(({ id }) => id === action.payload.id)
 
       state.posts.splice(index, 1)
-    },
+    })
   },
 })
 

@@ -8,10 +8,10 @@ export const postsService = {
   createPost: (data: CreatePostType) => {
     return codeleapApi.post('/', data)
   },
-  updatePost: (id: string, data: UpdatePostType) => {
+  updatePost: (id: number, data: UpdatePostType) => {
     return codeleapApi.patch(`/${id}`, data)
   },
-  deletePost: (id: string) => {
+  deletePost: (id: number) => {
     return codeleapApi.patch(`/${id}`)
   },
 }
