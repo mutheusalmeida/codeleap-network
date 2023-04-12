@@ -13,6 +13,7 @@ import { useAppDispatch } from '@/hooks/use-app-dispatch'
 import { deletePost, updatePost } from '@/redux/slices/posts-slice'
 import { TextField } from '../text-field'
 import { handleFormChange } from '@/resources/utils/handle-form-change'
+import formatDistanceToNowStrict from 'date-fns/formatDistanceToNowStrict'
 
 import * as S from './styles'
 
@@ -181,7 +182,7 @@ export const Post = ({
           <S.PostInfo>
             <S.PostUser>@{username}</S.PostUser>
 
-            <S.PostTime>{new Date(created_datetime).getDate()} minutes ago</S.PostTime>
+            <S.PostTime>{formatDistanceToNowStrict(new Date(created_datetime))} ago</S.PostTime>
           </S.PostInfo>
 
           <S.PostContent as='p'>
