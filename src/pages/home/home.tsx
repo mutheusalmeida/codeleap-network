@@ -10,33 +10,39 @@ import { Post } from '@/components/post'
 import { createPost, getPosts } from '@/redux/slices/posts-slice'
 
 import * as S from './styles'
+import { AsyncThunkAction } from '@reduxjs/toolkit'
+import { CreatePostType } from 'posts'
 
 export const Home = () => {
-  const [formData, setFormData] = useState({
+  const initialState = {
     title: '',
     content: '',
-  })
+  }
+  const [formData, setFormData] = useState(initialState)
   const { username } = useAppSelector(state => state.user.user)
   const posts = useAppSelector(state => state.posts.posts)
-  const dispatch = useAppDispatch()
+  const dispatch: (value: any) => any = useAppDispatch()
   const [isLoading, setIsLoading] = useState(false)
 
   const handleFormSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const { title, content } = formData
+    setIsLoading(true)
 
-    try {
-      setIsLoading(true)
-
-      if (username) {
-        dispatch(createPost({ username, title, content }))
-      }
-    } catch (err: unknown) {
-      if (err instanceof Error) {
-        console.log(err.message)
-      }
-    } finally {
-      setIsLoading(false)
+    if (username) {
+      dispatch(createPost({ username, title, content }))
+        .unwrap()
+        .then((res: CreatePostType) => {
+          console.log(res)
+        }).catch((err: unknown) => {
+          if (err instanceof Error) {
+            console.log(err.message)
+          }
+        }).finally(() => {
+          setIsLoading(false)
+          initFetch()
+          setFormData(initialState)
+        })
     }
   }
 

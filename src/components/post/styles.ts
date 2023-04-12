@@ -1,6 +1,10 @@
 import { Title, primarySelection } from '@/style'
 import styled from 'styled-components'
 
+type IconsWrapperType = {
+  isActionsVisible: boolean
+}
+
 export const PostWrapper = styled.div`
   border: 1px solid var(--gray-300);
   border-radius: 1em;
@@ -21,9 +25,12 @@ export const PostTitle = styled(Title)`
   color: var(--white);
 `
 
-export const IconsWrapper = styled.div`
+export const IconsWrapper = styled.div<IconsWrapperType>`
   display: flex;
   gap: 1.5em;
+  transition: visibility, opacity, ease 0.3s;
+  visibility: ${({ isActionsVisible }) => isActionsVisible ? 'visible' : 'hidden'};
+  opacity: ${({ isActionsVisible }) => isActionsVisible ? '1' : '0'};
 `
 
 export const PostBody = styled.div`
