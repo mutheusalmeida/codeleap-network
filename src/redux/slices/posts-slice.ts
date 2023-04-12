@@ -8,10 +8,12 @@ type PostsError = {
 
 type PostsState = {
   posts: PostType[]
+  isLoading: boolean
 }
 
 const initialState: PostsState = {
   posts: [],
+  isLoading: false,
 }
 
 export const getPosts = createAsyncThunk<GetPostsType, void, { rejectValue: PostsError }>(
@@ -65,8 +67,12 @@ const postsSlice = createSlice({
       state.posts = [...action.payload.results]
     })
 
-    builder.addCase(createPost.fulfilled, (_state, action: PayloadAction<CreatePostType>) => {
-      console.log(action.payload)
+    builder.addCase(createPost.pending, (state, _action) => {
+      state.isLoading = true
+    })
+
+    builder.addCase(createPost.fulfilled, (state, _action) => {
+      state.isLoading = false
     })
 
     builder.addCase(updatePost.fulfilled, (state, action) => {

@@ -8,8 +8,6 @@ import { FormEvent, useCallback, useEffect, useState } from 'react'
 import { handleFormChange } from '@/resources/utils/handle-form-change'
 import { Post } from '@/components/post'
 import { createPost, getPosts } from '@/redux/slices/posts-slice'
-import { CreatePostType } from 'posts'
-import { AsyncThunkAction } from '@reduxjs/toolkit'
 
 import * as S from './styles'
 
@@ -20,39 +18,26 @@ export const Home = () => {
   }
   const [formData, setFormData] = useState(initialState)
   const { username } = useAppSelector(state => state.user.user)
-  const posts = useAppSelector(state => state.posts.posts)
-  const dispatch: (value: any) => any = useAppDispatch()
-  const [isLoading, setIsLoading] = useState(false)
+  const { posts, isLoading } = useAppSelector(state => state.posts)
+  const dispatch = useAppDispatch()
 
   const handleFormSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const { title, content } = formData
-    setIsLoading(true)
 
     if (username) {
       dispatch(createPost({ username, title, content }))
-        .unwrap()
-        .then((res: CreatePostType) => {
-          console.log(res)
-        }).catch((err: unknown) => {
-          if (err instanceof Error) {
-            console.log(err.message)
-          }
-        }).finally(() => {
-          setIsLoading(false)
-          initFetch()
-          setFormData(initialState)
-        })
+      setFormData(initialState)
     }
   }
 
-  const initFetch = useCallback(() => {
+  const renderPosts = useCallback(() => {
     dispatch(getPosts())
   }, [dispatch])
 
   useEffect(() => {
-    initFetch()
-  }, [initFetch])
+    renderPosts()
+  }, [renderPosts, isLoading])
 
   return (
     <S.HomeWrapper>
@@ -79,6 +64,7 @@ export const Home = () => {
             <TextField
               label='Title'
               name='title'
+              value={formData.title}
               placeholder='Hello, world!'
               onChange={(e) => handleFormChange(e, setFormData)}
             />
@@ -86,6 +72,7 @@ export const Home = () => {
             <TextField
               label='Content'
               name='content'
+              value={formData.content}
               placeholder='Your content here'
               onChange={(e) => handleFormChange(e, setFormData)}
               inputElementType='textarea'
